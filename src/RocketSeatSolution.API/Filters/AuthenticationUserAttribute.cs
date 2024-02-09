@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using RocketSeatSolution.API.Repositories;
 
@@ -8,10 +9,20 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
-        var token = TokenOnRequest(context.HttpContext);
-        var repositorio = new RocketSeatSolutioinDBContext();
-        var email = FromBase64String(token);
-        var existe = repositorio.Users.Any(x => x.Email.Equals(""));
+        try
+        {
+            var token = TokenOnRequest(context.HttpContext);
+            var repositorio = new RocketSeatSolutioinDBContext();
+            var email = FromBase64String(token);
+            var usuarioExistente = repositorio.Users.Any(x => x.Email.Equals(""));
+
+            if (!usuarioExistente)
+                context.Result = new UnauthorizedObjectResult("EMAIL OU USUARIO INVALIDO");
+        }
+        catch (Exception ex)
+        {
+            context.Result = new UnauthorizedObjectResult(ex.Message);
+        }
     }
 
     private string TokenOnRequest(HttpContext context)
@@ -20,7 +31,6 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
 
         if (string.IsNullOrEmpty(autenticacao))
             throw new Exception("TOKEN INVALIDO");
-
 
         return autenticacao["Bearer ".Length..];
     }
@@ -31,3 +41,4 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
     }
 
 }
+//Y2Fzc2lvLmJqaG9uZXNAZ21haWwuY29t
