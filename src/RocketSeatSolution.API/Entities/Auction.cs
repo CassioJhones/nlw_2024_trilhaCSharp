@@ -8,3 +8,5 @@ public class Auction
     public DateTime Ends { get; set; }
     public List<Item> Items { get; set; } = [];
 }
+//Essa classe AUCTION faz referencia a Tabela AUCTION do banco de dados
+//cada propriedade da classe é uma coluna na tabela do banco de dados

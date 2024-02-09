@@ -12,3 +12,4 @@ public class Item
     public decimal BasePrice { get; set; }
     public int AuctionID { get; set; }
 }
+//cada propriedade da classe é uma coluna na tabela do banco de dados
