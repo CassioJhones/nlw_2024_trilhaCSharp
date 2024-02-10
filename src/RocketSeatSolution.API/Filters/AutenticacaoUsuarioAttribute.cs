@@ -5,7 +5,7 @@ using RocketSeatSolution.API.Repositories;
 
 namespace RocketSeatSolution.API.Filters;
 
-public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFilter
+public class AutenticacaoUsuarioAttribute : AuthorizeAttribute, IAuthorizationFilter
 {
     public void OnAuthorization(AuthorizationFilterContext context)
     {
@@ -13,7 +13,7 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
         {
             var token = TokenOnRequest(context.HttpContext);
             var repositorio = new RocketSeatSolutioinDBContext();
-            var email = FromBase64String(token);
+            var email = DecodificadorBase64(token);
             var usuarioExistente = repositorio.Users.Any(x => x.Email.Equals(""));
 
             if (!usuarioExistente)
@@ -34,7 +34,7 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
 
         return autenticacao["Bearer ".Length..];
     }
-    private string FromBase64String(string base64)
+    private string DecodificadorBase64(string base64)
     {
         var data = Convert.FromBase64String(base64);
         return System.Text.Encoding.UTF8.GetString(data);
@@ -42,3 +42,4 @@ public class AuthenticationUserAttribute : AuthorizeAttribute, IAuthorizationFil
 
 }
 //Y2Fzc2lvLmJqaG9uZXNAZ21haWwuY29t
+//Y3Jpc3RpYW5vQGNyaXN0aWFuby5jb20=
