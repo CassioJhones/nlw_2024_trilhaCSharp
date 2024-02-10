@@ -5,6 +5,4 @@ namespace RocketSeatSolution.API.Controllers;
 [ApiController]
 public class RocketSeatSolutionBaseController : ControllerBase
 {//Todos os controller herdam esse controlerBase, podendo evitar duplicidade de codigo e facilitando manutenções futuras.
-
-
 }

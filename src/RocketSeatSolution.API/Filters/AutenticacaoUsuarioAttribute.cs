@@ -14,10 +14,10 @@ public class AutenticacaoUsuarioAttribute : AuthorizeAttribute, IAuthorizationFi
             var token = TokenOnRequest(context.HttpContext);
             var repositorio = new RocketSeatSolutioinDBContext();
             var email = DecodificadorBase64(token);
-            var usuarioExistente = repositorio.Users.Any(x => x.Email.Equals(""));
+            var usuarioExistente = repositorio.Users.Any(x => x.Email.Equals(email));
 
             if (!usuarioExistente)
-                context.Result = new UnauthorizedObjectResult("EMAIL OU USUARIO INVALIDO");
+                context.Result = new UnauthorizedObjectResult("EMAIL OU USUÁRIO INVÁLIDO");
         }
         catch (Exception ex)
         {
@@ -30,7 +30,7 @@ public class AutenticacaoUsuarioAttribute : AuthorizeAttribute, IAuthorizationFi
         var autenticacao = context.Request.Headers.Authorization.ToString();
 
         if (string.IsNullOrEmpty(autenticacao))
-            throw new Exception("TOKEN INVALIDO");
+            throw new Exception("TOKEN AUSENTE OU INVÁLIDO");
 
         return autenticacao["Bearer ".Length..];
     }

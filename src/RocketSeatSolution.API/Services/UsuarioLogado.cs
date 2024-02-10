@@ -10,13 +10,15 @@ public class UsuarioLogado
     {
         _httpContextAccessor = httpContext;
     }
-    public User User()
+    public User Usuario()
     {
         var repositorio = new RocketSeatSolutioinDBContext();
 
         var token = TokenOnRequest();
         var email = DecodificadorBase64(token);
-        return repositorio.Users.First(x => x.Email.Equals(email));
+
+        return repositorio.Users.First
+            (x => x.Email.Equals(email));
     }
 
     private string TokenOnRequest()

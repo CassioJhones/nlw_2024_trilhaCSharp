@@ -4,6 +4,7 @@ using RocketSeatSolution.API.Filters;
 using RocketSeatSolution.API.UseCases.Offers.CreateOffer;
 
 namespace RocketSeatSolution.API.Controllers;
+
 [ServiceFilter(typeof(AutenticacaoUsuarioAttribute))]
 public class OfferController : RocketSeatSolutionBaseController
 {

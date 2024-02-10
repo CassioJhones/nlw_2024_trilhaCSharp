@@ -13,7 +13,7 @@ public class CreateOfferUseCase
     public int Execute(int itemId, RequestCreateOfferJson request)
     {
         var repositorio = new RocketSeatSolutioinDBContext();
-        var usuario = _usuarioLogado.User();
+        var usuario = _usuarioLogado.Usuario();
         var oferta = new Offer
         {
             CreatedOn = DateTime.Now,
