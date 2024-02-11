@@ -1,6 +1,6 @@
 ﻿using RocketSeatSolution.API.Comunication.Request;
+using RocketSeatSolution.API.Contratos;
 using RocketSeatSolution.API.Entities;
-using RocketSeatSolution.API.Repositories;
 using RocketSeatSolution.API.Services;
 
 namespace RocketSeatSolution.API.UseCases.Offers.CreateOffer;
@@ -8,11 +8,15 @@ namespace RocketSeatSolution.API.UseCases.Offers.CreateOffer;
 public class CreateOfferUseCase
 {
     private readonly UsuarioLogado _usuarioLogado;
-    public CreateOfferUseCase(UsuarioLogado UsuarioAtivo) => _usuarioLogado = UsuarioAtivo;
-    
+    private readonly IRepositorioOferta _repositorioOferta;
+    public CreateOfferUseCase(UsuarioLogado UsuarioAtivo, IRepositorioOferta repositorio)
+    {
+        _usuarioLogado = UsuarioAtivo;
+        _repositorioOferta = repositorio;
+    }
+
     public int Execute(int itemId, RequestCreateOfferJson request)
     {
-        var repositorio = new RocketSeatSolutioinDBContext();
         var usuario = _usuarioLogado.Usuario();
         var oferta = new Offer
         {
@@ -22,8 +26,7 @@ public class CreateOfferUseCase
             UserId = usuario.Id,
         };
 
-        repositorio.Offers.Add(oferta);
-        repositorio.SaveChanges();
+        _repositorioOferta.Adicionar(oferta);
         return oferta.Id;
     }
 }

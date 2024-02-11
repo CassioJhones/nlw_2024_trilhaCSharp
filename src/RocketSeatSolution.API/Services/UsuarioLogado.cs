@@ -1,24 +1,24 @@
-﻿using RocketSeatSolution.API.Entities;
-using RocketSeatSolution.API.Repositories;
+﻿using RocketSeatSolution.API.Contratos;
+using RocketSeatSolution.API.Entities;
 
 namespace RocketSeatSolution.API.Services;
 
 public class UsuarioLogado
 {
     private readonly IHttpContextAccessor _httpContextAccessor;
-    public UsuarioLogado(IHttpContextAccessor httpContext)
+    private readonly IRepositorioUsuario _repositorio;
+    public UsuarioLogado(IHttpContextAccessor httpContext, IRepositorioUsuario repositorio)
     {
         _httpContextAccessor = httpContext;
+        _repositorio = repositorio;
+
     }
     public User Usuario()
     {
-        var repositorio = new RocketSeatSolutioinDBContext();
-
         var token = TokenOnRequest();
         var email = DecodificadorBase64(token);
 
-        return repositorio.Users.First
-            (x => x.Email.Equals(email));
+        return _repositorio.BuscaUsuarioPorEmail(email);
     }
 
     private string TokenOnRequest()
