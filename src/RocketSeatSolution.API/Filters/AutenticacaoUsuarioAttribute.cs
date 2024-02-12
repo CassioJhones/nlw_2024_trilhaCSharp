@@ -25,7 +25,6 @@ public class AutenticacaoUsuarioAttribute : AuthorizeAttribute, IAuthorizationFi
             contexto.Result = new UnauthorizedObjectResult(ex.Message);
         }
     }
-
     private string TokenOnRequest(HttpContext contexto)
     {
         var autenticacao = contexto.Request.Headers.Authorization.ToString();

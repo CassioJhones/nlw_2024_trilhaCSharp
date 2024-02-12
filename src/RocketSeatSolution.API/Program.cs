@@ -50,7 +50,7 @@ builder.Services.AddSwaggerGen(
     }); ;
 
 builder.Services.AddScoped<AutenticacaoUsuarioAttribute>();
-builder.Services.AddScoped<UsuarioLogado>();
+builder.Services.AddScoped<IUsuarioLogado, UsuarioLogado>();
 builder.Services.AddScoped<CreateOfferUseCase>();
 builder.Services.AddScoped<GetCurrentAuctionUseCase>();
 builder.Services.AddScoped<IRepositorioLeilao, RepositorioLeilao>();

@@ -7,9 +7,9 @@ namespace RocketSeatSolution.API.UseCases.Offers.CreateOffer;
 
 public class CreateOfferUseCase
 {
-    private readonly UsuarioLogado _usuarioLogado;
+    private readonly IUsuarioLogado _usuarioLogado;
     private readonly IRepositorioOferta _repositorioOferta;
-    public CreateOfferUseCase(UsuarioLogado UsuarioAtivo, IRepositorioOferta repositorio)
+    public CreateOfferUseCase(IUsuarioLogado UsuarioAtivo, IRepositorioOferta repositorio)
     {
         _usuarioLogado = UsuarioAtivo;
         _repositorioOferta = repositorio;

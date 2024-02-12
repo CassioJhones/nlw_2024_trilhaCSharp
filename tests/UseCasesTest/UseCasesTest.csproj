@@ -29,8 +29,4 @@
     <ProjectReference Include="..\..\src\RocketSeatSolution.API\RocketSeatSolution.API.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Offers\CreateOffer\" />
-  </ItemGroup>
-
 </Project>
