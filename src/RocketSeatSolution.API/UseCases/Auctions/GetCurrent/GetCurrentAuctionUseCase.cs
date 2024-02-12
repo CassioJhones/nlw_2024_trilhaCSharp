@@ -7,5 +7,8 @@ public class GetCurrentAuctionUseCase
 {
     private readonly IRepositorioLeilao _repositorio;
     public GetCurrentAuctionUseCase(IRepositorioLeilao repositorio) => _repositorio = repositorio;
-    public Auction? Execute => _repositorio.GetCurrent();
+    public Auction? Execute()
+    {
+        return _repositorio.GetCurrent();
+    }
 }
